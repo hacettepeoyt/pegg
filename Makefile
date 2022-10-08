@@ -1,8 +1,10 @@
 SOURCES := $(wildcard src/*.cpp)
 OBJECTS := $(subst .cpp,.o,$(SOURCES))
+CXXFLAGS := -O2 -Wall -Werror $$(pkg-config --cflags sdl2) $(CXXFLAGS)
+LDFLAGS := $$(pkg-config --libs sdl2) $(LDFLAGS)
 
 %.o: %.cpp
-	g++ -c $(shell pkg-config --cflags sdl2) -std=c++17 $< -o $@
+	g++ -c $(CXXFLAGS) -std=c++17 $< -o $@
 
 pegg: $(OBJECTS)
-	g++ $(shell pkg-config --libs sdl2) $(OBJECTS) -o pegg
+	g++ $(LDFLAGS) $(OBJECTS) -o pegg
