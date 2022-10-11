@@ -16,6 +16,15 @@ int main(int argc, char** argv){
             return 1;
         }
 
+        SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+
+        if (renderer == nullptr) {
+            std::cerr << "An error occured while creating the renderer: " << SDL_GetError() << std::endl;
+            return 1;
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
         uint64_t last_ticks = SDL_GetTicks64();
         while (true) {
             int64_t delta = SDL_GetTicks64() - last_ticks;
@@ -26,6 +35,10 @@ int main(int argc, char** argv){
                     goto end;
                 }
             }
+
+            SDL_RenderClear(renderer);
+
+            SDL_RenderPresent(renderer);
 
             if (1000 / fps_limit > delta) {
                 SDL_Delay(1000 / fps_limit - delta);
