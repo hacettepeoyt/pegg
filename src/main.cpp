@@ -4,7 +4,7 @@
 static constexpr int64_t fps_limit = 60;
 
 int main(int argc, char** argv){
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) != 0){
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
